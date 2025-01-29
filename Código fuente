@@ -1,0 +1,64 @@
+package logico;
+
+import java.util.Scanner;
+
+public class Practica2 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Digite la secuencia de datos (separado por espacio): ");
+        String input = sc.nextLine();
+        String[] espacio = input.split(" ");
+        
+        System.out.print("Indique el valor de T: ");
+        int T = sc.nextInt();
+
+        String[] arr = new String[espacio.length];
+        System.arraycopy(espacio, 0, arr, 0, espacio.length);
+
+        int n = arr.length;
+        for (int t = 1; t <= T; t++) {
+
+            desplazamiento(arr, t, n, true);
+            desplazamiento(arr, t, n, false);
+        }
+
+        System.out.print("Resultado: ");
+        for (String s : arr) {
+            System.out.print(s + " ");
+        }
+    }
+
+    public static void desplazamiento(String[] arr, int t, int n, boolean primeraMitad) {
+        int mitad = n / 2;
+        
+        if (primeraMitad) {
+            for (int i = 0; i < t; i++) {
+                rotarIzquierda(arr, 0, mitad - 1);
+            }
+        } else {
+            for (int i = 0; i < t; i++) {
+                rotarDerecha(arr, mitad, n - 1);
+            }
+        }
+    }
+
+    public static void rotarIzquierda(String[] arr, int inicio, int fin) {
+        String temp = arr[inicio];
+        for (int i = inicio; i < fin; i++) {
+            arr[i] = arr[i + 1]; 
+        }
+        arr[fin] = temp; 
+    }
+
+    public static void rotarDerecha(String[] arr, int inicio, int fin) {
+        String temp = arr[fin];
+        for (int i = fin; i > inicio; i--) {
+            arr[i] = arr[i - 1]; 
+        }
+        arr[inicio] = temp; 
+    }
+
+    
+}
